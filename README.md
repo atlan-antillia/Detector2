@@ -60,7 +60,7 @@ ext_modules = [
 </pre>
 
 <h3>
-1.4Å@Run the following command.
+1.4 Run the following command.
 </h3>
 
 detectron2\cocoapi\PythonAPI>python setup.py build_ext install
