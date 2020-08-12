@@ -34,7 +34,7 @@ pip install requests-oauthlib==1.3.0<br>
 </h3>
 Please change directory to the detectron2 folder, and clone cocoapi.git in the following way.
 <pre>
-\detectron2>git clone https://github.com/cocodataset/cocoapi.git
+detectron2>git clone https://github.com/cocodataset/cocoapi.git
 </pre>
 
 Modify cocoeval.cpp file.<br>
@@ -66,15 +66,15 @@ ext_modules = [
 detectron2\cocoapi\PythonAPI>python setup.py build_ext install
 
 <br>
-Please clone <a href="https://github.com/atlan-antillia/Detector2.git">Detector2.git</a> in a 
-folder under the detectron2 folder made by git cloning detetron2.
+Please clone <a href="https://github.com/atlan-antillia/Detector2.git">https://github.com/atlan-antillia/Detector2.git</a> in a 
+folder under the detectron2 folder made by git-cloning the detetron2.
 <pre>
->git clone  https://github.com/atlan-antillia/Detector2.git
+detectron2>git clone  https://github.com/atlan-antillia/Detector2.git
 </pre>
 
 
 <h2>2 Detector2 class</h2>
- We have defined Detector2 class and added some new classes in this tiny-project.<br>
+ We have defined Detector2 class and added some new additional classes in this super tiny project.<br>
 <br>
 <a href="./Detector2.py">Detector2</a> <br>
 
@@ -93,12 +93,12 @@ folder under the detectron2 folder made by git cloning detetron2.
 </h3>
 Please run the following command in the format:<br>
 <pre>
->python Detector2\InstanceSegmentation.py input_image_file  output_image_dir [optional_filters]
+detectron2>python Detector2\InstanceSegmentation.py input_image_file  output_image_dir [optional_filters]
 </pre>
 
 Example: filters=[car]
 <pre>
->python Detector2\InstanceSegmentation.py Detector2\images\img.png Detector2\detected [car]
+detectron2>python Detector2\InstanceSegmentation.py Detector2\images\img.png Detector2\detected [car]
 </pre>
 In this case, the <i>car</i> objects only will be selected as shown below.<br>
   
@@ -109,11 +109,11 @@ In this case, the <i>car</i> objects only will be selected as shown below.<br>
 </h3>
 Please run the following command in the format:<br>
 <pre>
->python Detector2\PanopticSegmentation.py input_image_file  output_image_dir
+detectron2>python Detector2\PanopticSegmentation.py input_image_file  output_image_dir
 </pre>
 Example:
 <pre>
->python Detector2\PanoticSegmentation.py Detector2\images\img.png Detector2\detected 
+detectron2>python Detector2\PanoticSegmentation.py Detector2\images\img.png Detector2\detected 
 </pre>
 
 <img src="./detected/panoptic_img.png" width="80%" height="auto">
@@ -125,12 +125,12 @@ Example:
 You can run the following command to apply a segmentation-process for each image file in an images directory.<br>
 
 <pre>
->python Detector2\InstanceSegmentation.py input_image_dir output_image_dir 
+detectron2>python Detector2\InstanceSegmentation.py input_image_dir output_image_dir 
 </pre> 
 
 Example:
 <pre>
->python Detector2\InstanceSegmentation.py Detector2\images Detector2\detected 
+detectron2>python Detector2\InstanceSegmentation.py Detector2\images Detector2\detected 
 </pre> 
 <img src="./asset/Batch_InstanceSegmentaion_console.png" width="80%" height="auto">
 
