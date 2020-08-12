@@ -91,16 +91,27 @@ folder under the detectron2 folder made by git cloning detetron2.
 <h3>
 3.1 InstanceSegmentation.py
 </h3>
-Please run the following command
+Please run the following command in the format:<br>
+<pre>
+>python Detector2\InstanceSegmentation.py input_image_file  output_image_dir [optional_filters]
+</pre>
 
+Example: filters=[car]
 <pre>
 >python Detector2\InstanceSegmentation.py Detector2\images\img.png Detector2\detected [car]
 </pre>
+In this case, the <i>car</i> objects only will be selected as shown below.<br>
+  
 <img src="./detected/instance_seg_img.png" width="80%" height="auto">
 
 <h3>
 3.2 PanopticSegmentation.py
 </h3>
+Please run the following command in the format:<br>
+<pre>
+>python Detector2\PanopticSegmentation.py input_image_file  output_image_dir
+</pre>
+Example:
 <pre>
 >python Detector2\PanoticSegmentation.py Detector2\images\img.png Detector2\detected 
 </pre>
@@ -108,6 +119,21 @@ Please run the following command
 <img src="./detected/panoptic_img.png" width="80%" height="auto">
 <br>
 <br>
+<h3>
+4 Batch Segmentation
+</h3>
+You can run the following command to apply a segmentation-process for each image file in an images directory.<br>
+
+<pre>
+>python Detector2\InstanceSegmentation.py input_image_dir output_image_dir 
+</pre> 
+
+Example:
+<pre>
+>python Detector2\InstanceSegmentation.py Detector2\images Detector2\detected 
+</pre> 
+<img src="./asset/Batch_InstanceSegmentaion_console.png" width="80%" height="auto">
+
 <br>
 <h2>
 Citing Detectron2
