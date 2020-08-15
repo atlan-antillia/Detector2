@@ -102,13 +102,23 @@ Please run the following command in the format:<br>
 detectron2>python Detector2\InstanceSegmentation.py input_image_file  output_image_dir [optional_filters]
 </pre>
 
-Example: filters=[car]
+Example: filters=[person,car]
 <pre>
-detectron2>python Detector2\InstanceSegmentation.py Detector2\images\img.png Detector2\detected [car]
+detectron2>python Detector2\InstanceSegmentation.py Detector2\images\img.png Detector2\detected [person,car]
 </pre>
 In this case, the <i>car</i> objects only will be selected as shown below.<br>
   
-<img src="./detected/instance_seg_img.png" width="80%" height="auto">
+<img src="./detected/instance_seg_person_car_img.png" width="80%" height="auto">
+<br>
+detected_objects.img.png.csv<br>
+<img src="./detected/instance_seg_person_car_img.png.csv.png" width="80%" height="auto">
+<br>
+<br>
+detected_objects.img.png_stats.csv<br>
+<img src="./detected/instance_seg_person_car_img.png_stats.csv.png" width="80%" height="auto">
+<br>
+<br>
+
 
 <h3>
 3.2 PanopticSegmentation.py
