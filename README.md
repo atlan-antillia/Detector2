@@ -101,6 +101,34 @@ Please run the following command in the format:<br>
 <pre>
 detectron2>python Detector2\InstanceSegmentation.py input_image_file  output_image_dir [optional_filters]
 </pre>
+<br>
+ In instanceSegmentation, the above command will save the detected objects information as a csv file in the following format.<br>
+<pre>
+id, class,      score, x,   y, width, height
+--------------------------------------------
+1,  car,         90%, 1305, 612, 326, 281
+2,  car,         87%, 1245, 896, 336, 183
+3,  car,         85%, 1569, 643, 328, 261
+4,  car,         84%, 211,  631, 261, 203
+5,  car,         84%, 1024, 376,  91,  93
+6,  car,         83%, 1173, 481, 140, 127
+7,  motorcycle,  81%, 1230, 747,  89, 122
+8,  car,         81%, 486,  871, 293, 205
+9,  car,         81%, 1107, 327,  69,  54
+10,  person,     79%, 1094, 472,  40,  72
+11,  motorcycle, 78%, 1082, 717,  73, 125
+12,  person,     77%, 813,  593,  54, 108
+</pre>
+Furthermore, the number of objects in each class (objects_stats) on the detected objects as csv below.<br>
+<pre>
+id class     count
+-------------------
+1, car,        24
+2, motorcycle, 16
+3, person,     52
+4, bus,         2
+</pre>
+<br>
 
 Example: filters=[person,car]
 <pre>
@@ -110,11 +138,11 @@ In this case, the <i>car</i> objects only will be selected as shown below.<br>
   
 <img src="./detected/instance_seg_person_car_img.png" width="80%" height="auto">
 <br>
-detected_objects.img.png.csv<br>
+instance_seg_person_car_img.png.csv<br>
 <img src="./asset/instance_seg_person_car_img.png.csv.png" >
 <br>
 <br>
-detected_objects.img.png_stats.csv<br>
+instance_seg_person_car_img.png_stats.csv<br>
 <img src="./asset/instance_seg_person_car_img.png_stats.csv.png">
 <br>
 <br>
