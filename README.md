@@ -18,13 +18,13 @@ and installed pytorch-cpu and tochvision-cpu in the following way.<br>
 <tr><td>
 <font size=2>
 git clone https://github.com/facebookresearch/detectron2.git<br>
-cd detectron2
+cd detectron2<br>
 
-# In Windows10, please comment out line 187 of setup.py in that directory 
-# to avoid a compilation error, not to buid "pycocotools".
+In Windows10, please comment out line 187 of setup.py in that directory<br> 
+to avoid a compilation error, not to buid "pycocotools".<br>
 
-python setup.py build develop
-pip install torch==1.5.0+cpu torchvision==0.6.0+cpu -f https://download.pytorch.org/whl/torch_stable.html
+python setup.py build develop<br>
+pip install torch==1.5.0+cpu torchvision==0.6.0+cpu -f https://download.pytorch.org/whl/torch_stable.html<br>
 pip install Cython<br>
 pip install git+https://github.com/facebookresearch/fvcore<br>
 pip install opencv-python==4.3.0<br>
