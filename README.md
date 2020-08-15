@@ -21,7 +21,7 @@ git clone https://github.com/facebookresearch/detectron2.git<br>
 cd detectron2<br>
 
 In Windows10, please comment out line 187 of setup.py in that directory<br> 
-to avoid a compilation error, not to buid "pycocotools".<br>
+to avoid a compilation error, not to buid "pycocotools". We will build it manually.<br>
 
 python setup.py build develop<br>
 pip install torch==1.5.0+cpu torchvision==0.6.0+cpu -f https://download.pytorch.org/whl/torch_stable.html<br>
