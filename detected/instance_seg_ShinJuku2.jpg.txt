@@ -1,8 +1,0 @@
-1 car 92%
-2 car 77%
-3 car 99%
-4 car 76%
-5 car 97%
-6 car 91%
-7 car 81%
-8 car 66%

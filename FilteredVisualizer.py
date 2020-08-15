@@ -69,7 +69,7 @@ class FilteredVisualizer(Visualizer):
             )
             alpha = 0.3
 
-        _, detected_objects = self.overlay_instances_with_filters(
+        _, detected_objects, objects_stats = self.overlay_instances_with_filters(
             filters,
             masks=masks,
             boxes=boxes,
@@ -78,8 +78,8 @@ class FilteredVisualizer(Visualizer):
             assigned_colors=colors,
             alpha=alpha,
         )
-        #2020/08/12 Added detected_objects
-        return (self.output, detected_objects)
+        #2020/08/12 Added detected_objects, and objects_stats
+        return (self.output, detected_objects, objects_stats)
 
 
     #2020/08/06 atlan
@@ -184,7 +184,7 @@ class FilteredVisualizer(Visualizer):
         print("")
         n = 0
         detected_objects = []
-        
+        objects_stats    = {}
         for i in range(num_instances):
             # Check filters
             _label = labels[i]
@@ -236,9 +236,24 @@ class FilteredVisualizer(Visualizer):
                     * 0.5
                     * self._default_font_size
                 )
-                #2020/08/06
-                print("{} {}".format(n, labels[i]))
-                detected_objects.append((n, labels[i]))
+                
+                x0, y0, x1, y1 = boxes[i]
+                width  = x1 - x0
+                height = y1 - y0
+        
+                #2020/08/06, 2020/08/15 objects_stats
+                ar = labels[i].split(" ");
+                classname = ar[0]
+                score     = ar[1]
+                print("{} {} {} {} {} {} {}".format(n, classname, score, int(x0), int(y0), int(width), int(height) ))
+                detected_objects.append((n, classname, score, int(x0), int(y0), int(width), int(height) ))
+                if classname not in objects_stats:
+                  objects_stats[classname] = 1
+                else:
+                  count = int(objects_stats[classname])
+                  objects_stats.update({classname: count+1})
+                #
+                
                 self.draw_text(
                     labels[i],
                     text_pos,
@@ -253,5 +268,5 @@ class FilteredVisualizer(Visualizer):
             for keypoints_per_instance in keypoints:
                 self.draw_and_connect_keypoints(keypoints_per_instance)
 
-        return (self.output, detected_objects)
+        return (self.output, detected_objects, objects_stats)
 

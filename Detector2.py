@@ -1,7 +1,7 @@
 # Copyright (c) Facebook, Inc. and its affiliates. All Rights Reserved
 
 # Copyright (c) antillia.com Toshiyuki Arai
-# 2020/08/12
+# 2020/08/15
 
 # Detector2.py
 
@@ -80,23 +80,35 @@ class Detector2:
     image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
     catalog = MetadataCatalog.get(self.config.DATASETS.TRAIN[0])
    
-    (vis_output, detected_objects) = self.visualize(filters, predictions, image, catalog, 1.2, self.instance_mode)
+    (vis_output, detected_objects, objects_stats) = self.visualize(filters, predictions, image, catalog, 1.2, self.instance_mode)
 
     image = vis_output.get_image()
  
     image = cv2.cvtColor(image, cv2.COLOR_RGB2BGR)
     
     if output_image_dir is not None:
-      basename = os.path.basename(image_filepath)
-      prefixed_filename = filename_prefix + basename
-      output_filename = os.path.join(output_image_dir, prefixed_filename)
-
-      cv2.imwrite(output_filename, image)
-      print("Saved detected image to {}".format(output_filename))
-
-      detected_objects_path = output_filename + '.txt'
-      self.save_detected_objects(detected_objects, detected_objects_path)
+      if filters is None:
+         filters = ""
+    
+      filtersParser = FiltersParser(str(filters))
+      filtered_image_filepath = filtersParser.get_ouput_filename(image_filepath, output_image_dir)
+      filtered_image_filename = os.path.basename(filtered_image_filepath)
       
+      #basename = os.path.basename(image_filepath)
+
+      prefixed_filename = filename_prefix + filtered_image_filename
+      output_filepath = os.path.join(output_image_dir, prefixed_filename)
+
+      cv2.imwrite(output_filepath, image)
+      print("Saved detected image to {}".format(output_filepath))
+      CSV   = ".csv"
+      STATS = "_stats"
+      detected_objects_path = output_filepath + CSV
+      objects_stats_path    = output_filepath + STATS + CSV
+
+      self.save_detected_objects(detected_objects, detected_objects_path)
+      self.save_objects_stats(objects_stats, objects_stats_path)
+       
     else:
       cv2.imshow('Results', image)
 
@@ -104,22 +116,42 @@ class Detector2:
   def save_detected_objects(self, detected_objects, detected_objects_path):
     if detected_objects is None:
       return   
-    print("Saved detected_objects to {}".format(detected_objects_path))
+    print("==== Saved detected_objects to {}".format(detected_objects_path))
+    SEP = ","
+    NL  = "\n"
 
     # Save detected_objects data to a detected_objects_path file.
     # [(1, 'car:90%'), (2, 'person:80%'),... ]  
     with open(detected_objects_path, mode='w') as f:
       for item in detected_objects:
-         (id, label_with_score) = item
-         line = str(id) + " " + label_with_score +  "\n"
+         line = str(item).strip("()").replace("'", "") + NL
          f.write(line)
-               
-               
+
+
+  def save_objects_stats(self, objects_stats, objects_stats_path):
+    if objects_stats is None:
+      return
+    #2020/08/15 atlan: save the detected_objects as csv file
+    print("==== objects_stats {}".format(objects_stats))
+
+    print("==== Saved objects_stats to {}".format(objects_stats_path))
+  
+    SEP = ","
+    NL  = "\n"
+
+    with open(objects_stats_path, mode='w') as s:
+      for (k,v) in enumerate(objects_stats.items()):
+        (name, value) = v
+        line = str(k +1) + SEP + str(name) + SEP + str(value) + NL
+        s.write(line)
+
+
   def visualize(self, filters, predictions, image, metadata, scale, instance_mode):
     visualizer = FilteredVisualizer(filters, image, metadata=metadata, scale=scale, instance_mode=self.instance_mode)
     
     vis_output       = None
     detected_objects = None
+    objects_stats    = None
     
     if self.PANOPTIC_SEG in predictions:
       panoptic_seg, segments_info = predictions[self.PANOPTIC_SEG]
@@ -133,9 +165,9 @@ class Detector2:
     elif self.INSTANCES in predictions:
       #Currently, INSTANCES case only support filters  
       instances = predictions[self.INSTANCES].to(self.cpu_device)
-      (vis_output, detected_objects) = visualizer.draw_instance_predictions_with_filters(filters, predictions=instances)
+      (vis_output, detected_objects, objects_stats) = visualizer.draw_instance_predictions_with_filters(filters, predictions=instances)
 
-    return (vis_output, detected_objects)
+    return (vis_output, detected_objects, objects_stats)
 
 
 
@@ -179,10 +211,10 @@ if __name__ == "__main__":
     
     detector = Detector2(model)
     if os.path.isfile(image_filepath):
-      detector.detect(image_filepath, out_image_dir, filters)
+      detector.detect(image_filepath, out_image_dir, filename_prefix, filters)
       
     elif os.path.isdir(input_image_filepath):
-      detector.detect_all(image_filepath, out_image_dir, filters)
+      detector.detect_all(image_filepath, out_image_dir, filename_prefix, filters)
 
     else:
       raise Exception("Unsupported imput_image {}".format(input_image_filepath))
