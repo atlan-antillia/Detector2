@@ -111,11 +111,11 @@ In this case, the <i>car</i> objects only will be selected as shown below.<br>
 <img src="./detected/instance_seg_person_car_img.png" width="80%" height="auto">
 <br>
 detected_objects.img.png.csv<br>
-<img src="./asset/instance_seg_person_car_img.png.csv.png" width="80%" height="auto">
+<img src="./asset/instance_seg_person_car_img.png.csv.png" >
 <br>
 <br>
 detected_objects.img.png_stats.csv<br>
-<img src="./asset/instance_seg_person_car_img.png_stats.csv.png" width="80%" height="auto">
+<img src="./asset/instance_seg_person_car_img.png_stats.csv.png">
 <br>
 <br>
 
