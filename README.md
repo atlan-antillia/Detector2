@@ -102,7 +102,7 @@ Please run the following command in the format:<br>
 detectron2>python Detector2\InstanceSegmentation.py input_image_file  output_image_dir [optional_filters]
 </pre>
 <br>
- In instanceSegmentation, the above command will save the detected objects information as a csv file in the following format.<br>
+ In instance-segmentation, the above command will generate the detected objects information, and save it as a csv file in the following format.<br>
 <pre>
 id, class,      score, x,   y, width, height
 --------------------------------------------
@@ -119,7 +119,7 @@ id, class,      score, x,   y, width, height
 11,  motorcycle, 78%, 1082, 717,  73, 125
 12,  person,     77%, 813,  593,  54, 108
 </pre>
-Furthermore, the number of objects in each class (objects_stats) on the detected objects as csv below.<br>
+Furthermore, the number of objects in each class (objects_stats) on the detected objects as a csv file below.<br>
 <pre>
 id class     count
 -------------------
